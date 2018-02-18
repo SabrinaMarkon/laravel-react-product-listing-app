@@ -16,11 +16,23 @@ class ProductsController extends Controller
     }
 
     public function store(Request $request) {
+        $this->validate($request, [
+            'title' => 'required|unique:products|max:255',
+            'description' => 'required',
+            'price' => 'integer',
+            'availability' => 'boolean'
+        ]);
         $product = Product::create($request->all());
         return response()->json($product, 201);
     }
 
     public function update(Request $request, Product $product) {
+        $this->validate($request, [
+            'title' => 'required|unique:products|max:255',
+            'description' => 'required',
+            'price' => 'integer',
+            'availability' => 'boolean'
+        ]);
         $product->update($request->all());
         return $response()->json($product, 200);
     }
@@ -29,3 +41,4 @@ class ProductsController extends Controller
         $product->delete();
         return response()->json(null, 204);
     }
+}
