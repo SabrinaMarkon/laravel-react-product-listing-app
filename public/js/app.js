@@ -10232,8 +10232,11 @@ module.exports = __webpack_require__(218);
 
 /***/ }),
 /* 89 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Main__ = __webpack_require__(115);
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -10249,7 +10252,10 @@ __webpack_require__(90);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-__webpack_require__(115);
+//require('./components/Example');
+
+/* Import our Main component into the app */
+
 
 /***/ }),
 /* 90 */
@@ -41102,7 +41108,6 @@ module.exports = function spread(callback) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(116);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(132);
@@ -41118,55 +41123,81 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-var Example = function (_Component) {
-    _inherits(Example, _Component);
+/* Our Main Component */
 
-    function Example() {
-        _classCallCheck(this, Example);
+var Main = function (_Component) {
+    _inherits(Main, _Component);
 
-        return _possibleConstructorReturn(this, (Example.__proto__ || Object.getPrototypeOf(Example)).apply(this, arguments));
+    function Main(props) {
+        _classCallCheck(this, Main);
+
+        var _this = _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this, props));
+
+        _this.state = {
+            products: []
+        };
+        return _this;
     }
+    /* After the component renders, call the lifecycle method ComponentDidMount. */
 
-    _createClass(Example, [{
+
+    _createClass(Main, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var _this2 = this;
+
+            /* JS fetch() API promise to get the data */
+            fetch('/products').then(function (response) {
+                return response.json();
+            }).then(function (products) {
+                /* store fetched product in state. */
+                _this2.setState({ products: products });
+            });
+        }
+        /* */
+
+    }, {
+        key: 'renderProducts',
+        value: function renderProducts() {
+            return this.state.products.map(function (product) {
+                return (
+                    /* if we use a list we need a key attribute that is unique for each li */
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'li',
+                        { key: product.id },
+                        product.title
+                    )
+                );
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
-                { className: 'container' },
+                null,
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'div',
-                    { className: 'row' },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { className: 'col-md-8 col-md-offset-2' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'panel panel-default' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'div',
-                                { className: 'panel-heading' },
-                                'Example Component'
-                            ),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'div',
-                                { className: 'panel-body' },
-                                'I\'m an example component!'
-                            )
-                        )
-                    )
+                    'h3',
+                    null,
+                    'All Products'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'ul',
+                    null,
+                    this.renderProducts()
                 )
             );
         }
     }]);
 
-    return Example;
+    return Main;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-/* harmony default export */ __webpack_exports__["default"] = (Example);
+/* unused harmony default export */ var _unused_webpack_default_export = (Main);
 
-
-if (document.getElementById('example')) {
-    __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Example, null), document.getElementById('example'));
+/* The 'if' is needed to make sure we render the component on pages that have a div with id 'root' */
+if (document.getElementById('root')) {
+    __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Main, null), document.getElementById('root'));
 }
 
 /***/ }),

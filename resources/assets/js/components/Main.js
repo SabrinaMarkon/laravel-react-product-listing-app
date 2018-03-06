@@ -35,10 +35,18 @@ class Main extends Component {
     render() {
         return(
             <div>
+                <h3>All Products</h3>
                 <ul>
                     { this.renderProducts() }
                 </ul>
             </div>
         );
     }
+}
+
+export default Main;
+
+/* The 'if' is needed to make sure we render the component on pages that have a div with id 'root' */
+if (document.getElementById('root')) {
+    ReactDOM.render(<Main />, document.getElementById('root'));
 }
