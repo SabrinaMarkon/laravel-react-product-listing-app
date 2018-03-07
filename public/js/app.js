@@ -41135,7 +41135,8 @@ var Main = function (_Component) {
         var _this = _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this));
 
         _this.state = {
-            products: []
+            products: [],
+            currentProduct: null
         };
         return _this;
     }
@@ -41160,15 +41161,28 @@ var Main = function (_Component) {
     }, {
         key: 'renderProducts',
         value: function renderProducts() {
+            var _this3 = this;
+
             return this.state.products.map(function (product) {
                 return (
                     /* if we use a list we need a key attribute that is unique for each li */
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'li',
-                        { key: product.id },
+                        { key: product.id, onClick: function onClick() {
+                                return _this3.handleClick(product);
+                            } },
                         product.title
                     )
                 );
+            });
+        }
+        /* if a product title is clicked. */
+
+    }, {
+        key: 'handleClick',
+        value: function handleClick(product) {
+            this.setState({
+                currentProduct: product
             });
         }
         /* renders the component to show the list of products. */

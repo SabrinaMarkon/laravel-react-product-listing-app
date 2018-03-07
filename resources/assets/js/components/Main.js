@@ -8,6 +8,7 @@ class Main extends Component {
         /* Initialize our state. */
         this.state = {
             products: [],
+            currentProduct: null
         }
     }
     /* After the component renders, call the lifecycle method ComponentDidMount. */
@@ -27,10 +28,16 @@ class Main extends Component {
         return this.state.products.map(product => {
             return (
                 /* if we use a list we need a key attribute that is unique for each li */
-                <li key={ product.id } >
+                <li key={ product.id } onClick={ () => this.handleClick(product) }>
                     { product.title }
                 </li>
             );
+        });
+    }
+    /* if a product title is clicked. */
+    handleClick(product) {
+        this.setState({
+            currentProduct: product
         });
     }
     /* renders the component to show the list of products. */
