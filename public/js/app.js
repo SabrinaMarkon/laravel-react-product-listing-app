@@ -41128,10 +41128,11 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Main = function (_Component) {
     _inherits(Main, _Component);
 
-    function Main(props) {
+    function Main() {
         _classCallCheck(this, Main);
 
-        var _this = _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this, props));
+        /* Initialize our state. */
+        var _this = _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this));
 
         _this.state = {
             products: []
@@ -41154,7 +41155,7 @@ var Main = function (_Component) {
                 _this2.setState({ products: products });
             });
         }
-        /* */
+        /* maps a li to each product in the state. */
 
     }, {
         key: 'renderProducts',
@@ -41170,6 +41171,8 @@ var Main = function (_Component) {
                 );
             });
         }
+        /* renders the component to show the list of products. */
+
     }, {
         key: 'render',
         value: function render() {

@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 
 /* Our Main Component */
 class Main extends Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
+        /* Initialize our state. */
         this.state = {
             products: [],
         }
@@ -21,7 +22,7 @@ class Main extends Component {
                 this.setState({ products });
             });
     }
-    /* */
+    /* maps a li to each product in the state. */
     renderProducts() {
         return this.state.products.map(product => {
             return (
@@ -32,6 +33,7 @@ class Main extends Component {
             );
         });
     }
+    /* renders the component to show the list of products. */
     render() {
         return(
             <div>
