@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import Product from './Product';
 
 /* Our Main Component */
 class Main extends Component {
@@ -28,7 +29,7 @@ class Main extends Component {
         return this.state.products.map(product => {
             return (
                 /* if we use a list we need a key attribute that is unique for each li */
-                <li key={ product.id } onClick={ () => this.handleClick(product) }>
+                <li key={ product.id } onClick={ () => this.handleClick(product.title) }>
                     { product.title }
                 </li>
             );
@@ -44,10 +45,13 @@ class Main extends Component {
     render() {
         return(
             <div>
-                <h3>All Products</h3>
-                <ul>
-                    { this.renderProducts() }
-                </ul>
+                <div>
+                    <h3>All Products</h3>
+                    <ul>
+                        { this.renderProducts() }
+                    </ul>
+                </div>
+                <Product product={ this.state.currentProduct } />
             </div>
         );
     }
