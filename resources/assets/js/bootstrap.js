@@ -10,7 +10,12 @@ window._ = require('lodash');
 try {
     window.$ = window.jQuery = require('jquery');
 
-    require('bootstrap-sass');
+    // Bootstrap:
+    //require('bootstrap-sass');
+
+    // Bootstrap 4:
+    require('bootstrap');
+    
 } catch (e) {}
 
 /**
