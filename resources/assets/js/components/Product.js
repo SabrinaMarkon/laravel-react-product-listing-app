@@ -3,12 +3,12 @@ import React, { Component } from 'react';
 /* Stateless component otherwise known as a 'pure component'
 { product } syntax is the object destruction */
 
-const Product = ([{product}]) => {
-    //product = JSON.parse(JSON.stringify(product));
+const Product = ({product}) => {
+    /* product = JSON.parse(JSON.stringify(product));
     product = JSON.stringify(product); // or product = Object.keys(product);
-    //console.log(product); // problem undefined!!! But product itself IS defined!
+    console.log(product); // problem undefined!!! But product itself IS defined! */
     const divStyle = {
-        // style goes here
+       float: 'right'
     }
     /* return product doesn't exist if the props 'product' is null. */
     if (!product) {

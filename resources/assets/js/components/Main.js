@@ -11,6 +11,8 @@ class Main extends Component {
             products: [],
             currentProduct: null
         }
+        this.renderProducts = this.renderProducts.bind(this);
+        this.handleClick = this.handleClick.bind(this);
     }
     /* After the component renders, call the lifecycle method ComponentDidMount. */
     componentDidMount() {
@@ -22,6 +24,9 @@ class Main extends Component {
             .then(products => {
                 /* store fetched product in state. */
                 this.setState({ products });
+            })
+            .catch(error => {
+                throw(error);
             });
     }
     /* maps a li to each product in the state. */
@@ -29,7 +34,7 @@ class Main extends Component {
         return this.state.products.map(product => {
             return (
                 /* if we use a list we need a key attribute that is unique for each li */
-                <li key={ product.id } onClick={ () => this.handleClick(product.title) }>
+                <li style={{color: 'red'}} key={ product.id } onClick={ () => this.handleClick(JSON.stringify(product)) }>
                     { product.title }
                 </li>
             );
@@ -51,6 +56,7 @@ class Main extends Component {
                         { this.renderProducts() }
                     </ul>
                 </div>
+                <div>{ this.state.currentProduct }</div>
                 <Product product={ this.state.currentProduct } />
             </div>
         );

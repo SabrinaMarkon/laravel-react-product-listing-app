@@ -41140,6 +41140,8 @@ var Main = function (_Component) {
             products: [],
             currentProduct: null
         };
+        _this.renderProducts = _this.renderProducts.bind(_this);
+        _this.handleClick = _this.handleClick.bind(_this);
         return _this;
     }
     /* After the component renders, call the lifecycle method ComponentDidMount. */
@@ -41156,6 +41158,8 @@ var Main = function (_Component) {
             }).then(function (products) {
                 /* store fetched product in state. */
                 _this2.setState({ products: products });
+            }).catch(function (error) {
+                throw error;
             });
         }
         /* maps a li to each product in the state. */
@@ -41170,8 +41174,8 @@ var Main = function (_Component) {
                     /* if we use a list we need a key attribute that is unique for each li */
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'li',
-                        { key: product.id, onClick: function onClick() {
-                                return _this3.handleClick(product);
+                        { style: { color: 'red' }, key: product.id, onClick: function onClick() {
+                                return _this3.handleClick(JSON.stringify(product));
                             } },
                         product.title
                     )
@@ -41183,7 +41187,6 @@ var Main = function (_Component) {
     }, {
         key: 'handleClick',
         value: function handleClick(product) {
-            //console.log(product);
             this.setState({
                 currentProduct: product
             });
@@ -41209,6 +41212,11 @@ var Main = function (_Component) {
                         null,
                         this.renderProducts()
                     )
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    null,
+                    this.state.currentProduct
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Product__["a" /* default */], { product: this.state.currentProduct })
             );
@@ -53746,13 +53754,16 @@ module.exports = ReactDOMInvalidARIAHook;
 /* Stateless component otherwise known as a 'pure component'
 { product } syntax is the object destruction */
 
-var Product = function Product(product) {
-    console.log(product); // problem undefined!!! But product itself IS defined!
-    var divStyle = {}
-    // style goes here
+var Product = function Product(_ref) {
+    var product = _ref.product;
 
-    /* return product doesn't exist if the props 'product' is null. */
-    ;if (!product) {
+    /* product = JSON.parse(JSON.stringify(product));
+    product = JSON.stringify(product); // or product = Object.keys(product);
+    console.log(product); // problem undefined!!! But product itself IS defined! */
+    var divStyle = {
+        float: 'right'
+        /* return product doesn't exist if the props 'product' is null. */
+    };if (!product) {
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             { style: divStyle },
