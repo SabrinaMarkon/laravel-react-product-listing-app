@@ -38833,13 +38833,17 @@ var Main = function (_Component) {
                             null,
                             'All Products'
                         )
-                    ),
+                    )
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: 'row' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
-                        { className: 'col-lg' },
+                        { className: 'col-lg card' },
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'ul',
-                            null,
+                            { className: 'card-body' },
                             this.renderProducts()
                         )
                     ),
@@ -51388,14 +51392,20 @@ var Product = function Product(_ref) {
     var product = _ref.product;
 
 
-    var divStyle = {};
+    var divStyle = {}
+    //  backgroundColor: '#f0f0f0'
+
 
     /* return product doesn't exist if the props 'product' is null. */
-    if (!product) {
+    ;if (!product) {
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'div',
-            { style: divStyle },
-            '  Product Doesnt exist '
+            "div",
+            { style: divStyle, className: "card" },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "div",
+                { className: "card-body" },
+                "  Product Doesnt exist "
+            )
         );
     }
 
@@ -51405,30 +51415,34 @@ var Product = function Product(_ref) {
     var productObject = JSON.parse(product);
 
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'div',
-        { style: { divStyle: divStyle } },
+        "div",
+        { className: "card" },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'h2',
-            null,
-            productObject.title
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'p',
-            null,
-            ' ',
-            productObject.description
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'h3',
-            null,
-            'Status: ',
-            productObject.availability ? 'Available' : 'Out of stock'
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'h3',
-            null,
-            'Price: ',
-            productObject.price
+            "div",
+            { style: { divStyle: divStyle }, className: "card-body" },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "h2",
+                null,
+                productObject.title
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "p",
+                null,
+                " ",
+                productObject.description
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "h3",
+                null,
+                "Status: ",
+                productObject.availability ? 'Available' : 'Out of stock'
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "h3",
+                null,
+                "Price: ",
+                productObject.price
+            )
         )
     );
 };

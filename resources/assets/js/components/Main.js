@@ -54,9 +54,11 @@ class Main extends Component {
                 <div className="row">
                     <div className="col-lg">
                         <h3>All Products</h3>
-                    </div>
-                    <div className="col-lg">
-                        <ul>
+                    </div>           
+                </div>
+                <div className="row">
+                    <div className="col-lg card">
+                        <ul className="card-body">
                             { this.renderProducts() }
                         </ul>
                     </div>

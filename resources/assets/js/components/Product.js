@@ -6,12 +6,12 @@ import React, { Component } from 'react';
 const Product = ({product}) => {
 
     const divStyle = {
-
+      //  backgroundColor: '#f0f0f0'
     }
-    
+
     /* return product doesn't exist if the props 'product' is null. */
     if (!product) {
-        return(<div style={divStyle}>  Product Doesnt exist </div>);
+        return(<div style={divStyle} className="card"><div className="card-body">  Product Doesnt exist </div></div>);
     }
 
     /* else we display the product data. */
@@ -20,11 +20,13 @@ const Product = ({product}) => {
     let productObject = JSON.parse(product);
 
     return(
-        <div style={{ divStyle }}>
-            <h2>{ productObject.title }</h2>
-            <p> { productObject.description }</p>
-            <h3>Status: { productObject.availability ? 'Available' : 'Out of stock' }</h3>
-            <h3>Price: { productObject.price }</h3>
+        <div className="card">
+            <div style={{ divStyle }} className="card-body">
+                <h2>{ productObject.title }</h2>
+                <p> { productObject.description }</p>
+                <h3>Status: { productObject.availability ? 'Available' : 'Out of stock' }</h3>
+                <h3>Price: { productObject.price }</h3>
+            </div>        
         </div>
     );
 };
