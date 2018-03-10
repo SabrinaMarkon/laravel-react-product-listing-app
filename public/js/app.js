@@ -41159,6 +41159,7 @@ var Main = function (_Component) {
                 /* store fetched product in state. */
                 _this2.setState({ products: products });
             }).catch(function (error) {
+                /* If some cataclysm happens. */
                 throw error;
             });
         }
@@ -41171,10 +41172,10 @@ var Main = function (_Component) {
 
             return this.state.products.map(function (product) {
                 return (
-                    /* if we use a list we need a key attribute that is unique for each li */
+                    /* if we use a list we need a key attribute that is unique for each li. Also, change the product object to a string so it can be sent to the child component, Product (otherwise we get error and clicking doesn't work. */
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'li',
-                        { style: { color: 'red' }, key: product.id, onClick: function onClick() {
+                        { style: { textDecoration: 'none' }, key: product.id, onClick: function onClick() {
                                 return _this3.handleClick(JSON.stringify(product));
                             } },
                         product.title
@@ -41198,27 +41199,34 @@ var Main = function (_Component) {
         value: function render() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
-                null,
+                { className: 'container' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
-                    null,
+                    { className: 'row' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'h3',
-                        null,
-                        'All Products'
+                        'div',
+                        { className: 'col-lg' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'h3',
+                            null,
+                            'All Products'
+                        )
                     ),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'ul',
-                        null,
-                        this.renderProducts()
+                        'div',
+                        { className: 'col-lg' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'ul',
+                            null,
+                            this.renderProducts()
+                        )
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'col-lg' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Product__["a" /* default */], { product: this.state.currentProduct })
                     )
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'div',
-                    null,
-                    this.state.currentProduct
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Product__["a" /* default */], { product: this.state.currentProduct })
+                )
             );
         }
     }]);
@@ -53757,13 +53765,11 @@ module.exports = ReactDOMInvalidARIAHook;
 var Product = function Product(_ref) {
     var product = _ref.product;
 
-    /* product = JSON.parse(JSON.stringify(product));
-    product = JSON.stringify(product); // or product = Object.keys(product);
-    console.log(product); // problem undefined!!! But product itself IS defined! */
-    var divStyle = {
-        float: 'right'
-        /* return product doesn't exist if the props 'product' is null. */
-    };if (!product) {
+
+    var divStyle = {};
+
+    /* return product doesn't exist if the props 'product' is null. */
+    if (!product) {
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             { style: divStyle },
@@ -53772,31 +53778,35 @@ var Product = function Product(_ref) {
     }
 
     /* else we display the product data. */
+
+    /* product is passed as a string to the Product component with JSON.stringify(product) in the Main component. Otherwise we get the error: "Uncaught Error: Objects are not valid as a React child onclick". Thus, we must change product back into an object here in order to display the item's values. */
+    var productObject = JSON.parse(product);
+
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
-        { style: divStyle },
+        { style: { divStyle: divStyle } },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'h2',
             null,
-            product.title
+            productObject.title
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'p',
             null,
             ' ',
-            product.description
+            productObject.description
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'h3',
             null,
             'Status: ',
-            product.availability ? 'Available' : 'Out of stock'
+            productObject.availability ? 'Available' : 'Out of stock'
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'h3',
             null,
             'Price: ',
-            product.price
+            productObject.price
         )
     );
 };

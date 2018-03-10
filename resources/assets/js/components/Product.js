@@ -4,24 +4,27 @@ import React, { Component } from 'react';
 { product } syntax is the object destruction */
 
 const Product = ({product}) => {
-    /* product = JSON.parse(JSON.stringify(product));
-    product = JSON.stringify(product); // or product = Object.keys(product);
-    console.log(product); // problem undefined!!! But product itself IS defined! */
+
     const divStyle = {
-       float: 'right'
+
     }
+    
     /* return product doesn't exist if the props 'product' is null. */
     if (!product) {
         return(<div style={divStyle}>  Product Doesnt exist </div>);
     }
 
     /* else we display the product data. */
+
+    /* product is passed as a string to the Product component with JSON.stringify(product) in the Main component. Otherwise we get the error: "Uncaught Error: Objects are not valid as a React child onclick". Thus, we must change product back into an object here in order to display the item's values. */
+    let productObject = JSON.parse(product);
+
     return(
-        <div style={ divStyle }>
-            <h2>{ product.title }</h2>
-            <p> { product.description }</p>
-            <h3>Status: { product.availability ? 'Available' : 'Out of stock' }</h3>
-            <h3>Price: { product.price }</h3>
+        <div style={{ divStyle }}>
+            <h2>{ productObject.title }</h2>
+            <p> { productObject.description }</p>
+            <h3>Status: { productObject.availability ? 'Available' : 'Out of stock' }</h3>
+            <h3>Price: { productObject.price }</h3>
         </div>
     );
 };

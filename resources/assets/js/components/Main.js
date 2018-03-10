@@ -26,6 +26,7 @@ class Main extends Component {
                 this.setState({ products });
             })
             .catch(error => {
+                /* If some cataclysm happens. */
                 throw(error);
             });
     }
@@ -33,8 +34,8 @@ class Main extends Component {
     renderProducts() {
         return this.state.products.map(product => {
             return (
-                /* if we use a list we need a key attribute that is unique for each li */
-                <li style={{color: 'red'}} key={ product.id } onClick={ () => this.handleClick(JSON.stringify(product)) }>
+                /* if we use a list we need a key attribute that is unique for each li. Also, change the product object to a string so it can be sent to the child component, Product (otherwise we get error and clicking doesn't work. */
+                <li style={{textDecoration: 'none'}} key={ product.id } onClick={ () => this.handleClick(JSON.stringify(product)) }>
                     { product.title }
                 </li>
             );
@@ -49,15 +50,20 @@ class Main extends Component {
     /* renders the component to show the list of products. */
     render() {
         return(
-            <div>
-                <div>
-                    <h3>All Products</h3>
-                    <ul>
-                        { this.renderProducts() }
-                    </ul>
+            <div className="container">
+                <div className="row">
+                    <div className="col-lg">
+                        <h3>All Products</h3>
+                    </div>
+                    <div className="col-lg">
+                        <ul>
+                            { this.renderProducts() }
+                        </ul>
+                    </div>
+                    <div className="col-lg">
+                        <Product product={ this.state.currentProduct } />
+                    </div>       
                 </div>
-                <div>{ this.state.currentProduct }</div>
-                <Product product={ this.state.currentProduct } />
             </div>
         );
     }
