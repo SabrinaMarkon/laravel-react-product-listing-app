@@ -60,7 +60,7 @@ class AddProduct extends Component {
                         <input type="text" onChange={(e) => this.handleInput('description', e)} />
                     </label>
                     <label>Price:
-                        <input type="number" min="0.00" step="any"  value="0.00" onChange={(e) => this.handleInput('price', e)} />
+                        <input type="number" min="0.00" step=".01" onChange={(e) => this.handleInput('price', e)} />
                     </label>
                     <label>Availability:
                         <input type="text" onChange={(e) => this.handleInput('availability', e)} />

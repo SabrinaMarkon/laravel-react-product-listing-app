@@ -57920,7 +57920,7 @@ var AddProduct = function (_Component) {
                             'label',
                             null,
                             'Price:',
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'number', min: '0.00', step: 'any', value: '0.00', onChange: function onChange(e) {
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'number', min: '0.00', step: '.01', onChange: function onChange(e) {
                                     return _this2.handleInput('price', e);
                                 } })
                         ),
