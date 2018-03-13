@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Product from './Product';
+import AddProduct from './AddProduct';
 
 /* Our Main Component */
 class Main extends Component {
@@ -13,6 +14,7 @@ class Main extends Component {
         }
         this.renderProducts = this.renderProducts.bind(this);
         this.handleClick = this.handleClick.bind(this);
+        this.handleAddProduct = this.handleAddProduct.bind(this);
     }
     /* After the component renders, call the lifecycle method ComponentDidMount. */
     componentDidMount() {
@@ -35,7 +37,7 @@ class Main extends Component {
         return this.state.products.map(product => {
             return (
                 /* if we use a list we need a key attribute that is unique for each li. Also, change the product object to a string so it can be sent to the child component, Product (otherwise we get error and clicking doesn't work. */
-                <li style={{textDecoration: 'none'}} key={ product.id } onClick={ () => this.handleClick(JSON.stringify(product)) }>
+                <li style={{listStyleType: 'none'}} key={ product.id } onClick={ () => this.handleClick(JSON.stringify(product)) }>
                     { product.title }
                 </li>
             );
@@ -47,6 +49,12 @@ class Main extends Component {
             currentProduct: product
         });
     }
+
+    /* if we submitted the form to add a new product, it is added with this method. In the props for the AddProduct component, handleAddProduct is called onAdd. */
+    handleAddProduct(product) {
+        console.log(product);
+    }
+
     /* renders the component to show the list of products. */
     render() {
         return(
@@ -57,13 +65,15 @@ class Main extends Component {
                     </div>           
                 </div>
                 <div className="row">
-                    <div className="col-lg card">
+                    <div className="col-lg card mb-3 border-secondary">
                         <ul className="card-body">
                             { this.renderProducts() }
                         </ul>
                     </div>
                     <div className="col-lg">
                         <Product product={ this.state.currentProduct } />
+                        <br />
+                        <AddProduct onAdd={this.handleAddProduct} />
                     </div>       
                 </div>
             </div>

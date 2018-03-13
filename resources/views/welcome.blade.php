@@ -9,7 +9,7 @@
         <link href="{{mix('css/app.css')}}" rel="stylesheet" type="text/css" />
     </head>
     <body>
-        <h2 style="text-align: center; padding: 2rem;">Laravel React Product Listing App</h2>
+        <h2 style="text-align: center; padding-top: 2rem; padding-bottom: 1rem;">Laravel React Product Listing App</h2>
         <div id="root"></div>
         <script src="{{mix('js/app.js')}}"></script>
     </body>

@@ -38735,6 +38735,7 @@ module.exports = function spread(callback) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(132);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Product__ = __webpack_require__(229);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__AddProduct__ = __webpack_require__(232);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -38742,6 +38743,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -38764,6 +38766,7 @@ var Main = function (_Component) {
         };
         _this.renderProducts = _this.renderProducts.bind(_this);
         _this.handleClick = _this.handleClick.bind(_this);
+        _this.handleAddProduct = _this.handleAddProduct.bind(_this);
         return _this;
     }
     /* After the component renders, call the lifecycle method ComponentDidMount. */
@@ -38797,7 +38800,7 @@ var Main = function (_Component) {
                     /* if we use a list we need a key attribute that is unique for each li. Also, change the product object to a string so it can be sent to the child component, Product (otherwise we get error and clicking doesn't work. */
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'li',
-                        { style: { textDecoration: 'none' }, key: product.id, onClick: function onClick() {
+                        { style: { listStyleType: 'none' }, key: product.id, onClick: function onClick() {
                                 return _this3.handleClick(JSON.stringify(product));
                             } },
                         product.title
@@ -38814,6 +38817,15 @@ var Main = function (_Component) {
                 currentProduct: product
             });
         }
+
+        /* if we submitted the form to add a new product, it is added with this method. In the props for the AddProduct component, handleAddProduct is called onAdd. */
+
+    }, {
+        key: 'handleAddProduct',
+        value: function handleAddProduct(product) {
+            console.log(product);
+        }
+
         /* renders the component to show the list of products. */
 
     }, {
@@ -38840,7 +38852,7 @@ var Main = function (_Component) {
                     { className: 'row' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
-                        { className: 'col-lg card' },
+                        { className: 'col-lg card mb-3 border-secondary' },
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'ul',
                             { className: 'card-body' },
@@ -38850,7 +38862,9 @@ var Main = function (_Component) {
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
                         { className: 'col-lg' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Product__["a" /* default */], { product: this.state.currentProduct })
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Product__["a" /* default */], { product: this.state.currentProduct }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__AddProduct__["a" /* default */], { onAdd: this.handleAddProduct })
                     )
                 )
             );
@@ -51392,19 +51406,18 @@ var Product = function Product(_ref) {
     var product = _ref.product;
 
 
-    var divStyle = {}
-    //  backgroundColor: '#f0f0f0'
+    var divStyle = {
+        backgroundColor: '#f7f7f7'
 
-
-    /* return product doesn't exist if the props 'product' is null. */
-    ;if (!product) {
+        /* return product doesn't exist if the props 'product' is null. */
+    };if (!product) {
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "div",
-            { style: divStyle, className: "card" },
+            'div',
+            { style: divStyle, className: 'card mb-3 border-secondary' },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "div",
-                { className: "card-body" },
-                "  Product Doesnt exist "
+                'div',
+                { className: 'card-body' },
+                '  Product Doesnt exist '
             )
         );
     }
@@ -51415,32 +51428,32 @@ var Product = function Product(_ref) {
     var productObject = JSON.parse(product);
 
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        "div",
-        { className: "card" },
+        'div',
+        { style: { divStyle: divStyle }, className: 'card mb-3 border-secondary' },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "div",
-            { style: { divStyle: divStyle }, className: "card-body" },
+            'h2',
+            { className: 'card-header bg-light border-secondary' },
+            productObject.title
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'card-body' },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "h2",
+                'p',
                 null,
-                productObject.title
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "p",
-                null,
-                " ",
+                ' ',
                 productObject.description
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "h3",
+                'h3',
                 null,
-                "Status: ",
+                'Status: ',
                 productObject.availability ? 'Available' : 'Out of stock'
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "h3",
+                'h3',
                 null,
-                "Price: ",
+                'Price: ',
                 productObject.price
             )
         )
@@ -57794,6 +57807,150 @@ Popper.Defaults = Defaults;
 //# sourceMappingURL=popper.js.map
 
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(92)))
+
+/***/ }),
+/* 232 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(116);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+/* AddProduct child component for adding a new product/item to the database */
+
+var AddProduct = function (_Component) {
+    _inherits(AddProduct, _Component);
+
+    function AddProduct(props) {
+        _classCallCheck(this, AddProduct);
+
+        /* Initialize the state. This component's state holds the form data */
+        var _this = _possibleConstructorReturn(this, (AddProduct.__proto__ || Object.getPrototypeOf(AddProduct)).call(this, props));
+
+        _this.state = {
+            newProduct: {
+                title: '',
+                description: '',
+                price: 0,
+                availability: 0
+            }
+            /* Bind methods with 'this' */
+        };_this.handleSubmit = _this.handleSubmit.bind(_this);
+        _this.handleInput = _this.handleInput.bind(_this);
+        return _this;
+    }
+
+    /* Dynamically store inputs in the state.
+        'key' is the property of the object that is being edited ie. 'title', 'description', 'price', or 'availability' and calling the handleInput method.
+    */
+
+
+    _createClass(AddProduct, [{
+        key: 'handleInput',
+        value: function handleInput(key, e) {
+            /* Duplicate then update the state.
+                Object.assign in ES6 copies teh values from one or more source objects to a target object. The target object is the first parameter, and below, it is a new empty object. The next parameter is where newProduct is placed into that new empty object.
+                state[key] is like state['title'] etc.
+            */
+            var state = Object.assign({}, this.state.newProduct);
+            state[key] = e.target.value;
+            this.setState({
+                newProduct: state
+            });
+        }
+
+        /* User submitted the form */
+
+    }, {
+        key: 'handleSubmit',
+        value: function handleSubmit(e) {
+            e.preventDefault(); // we don't want the page to reload.
+
+            /* Callback to the onAdd props with the current state passed as a parameter. In Main.js this will be set by the handleAddProduct method. This is how we communicate with the parent component! */
+            this.props.onAdd(this.state.newProduct);
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            var divStyle = {
+                backgroundColor: '#f7f7f7'
+            };
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'h2',
+                    null,
+                    'Add a new product'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { style: divStyle },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'form',
+                        { onSubmit: this.handleSubmit },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'label',
+                            null,
+                            'Title:',
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', onChange: function onChange(e) {
+                                    return _this2.handleInput('title', e);
+                                } })
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'label',
+                            null,
+                            'Description:',
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', onChange: function onChange(e) {
+                                    return _this2.handleInput('description', e);
+                                } })
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'label',
+                            null,
+                            'Price:',
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'number', min: '0.00', step: 'any', value: '0.00', onChange: function onChange(e) {
+                                    return _this2.handleInput('price', e);
+                                } })
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'label',
+                            null,
+                            'Availability:',
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', onChange: function onChange(e) {
+                                    return _this2.handleInput('availability', e);
+                                } })
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'submit', value: 'Submit' })
+                    )
+                )
+            );
+        }
+    }]);
+
+    return AddProduct;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+/*
+The component basically renders an input form, and all the input values are stored in the state (this.state.newProduct). 
+
+Then, on form submission, handleSubmit() method gets invoked. 
+
+***But AddProduct needs to communicate the information back to the parent, and we do this using a callback.*** This is why we need callbacks!
+*/
+
+/* harmony default export */ __webpack_exports__["a"] = (AddProduct);
 
 /***/ })
 /******/ ]);
