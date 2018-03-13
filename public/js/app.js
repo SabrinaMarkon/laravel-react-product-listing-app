@@ -38823,7 +38823,35 @@ var Main = function (_Component) {
     }, {
         key: 'handleAddProduct',
         value: function handleAddProduct(product) {
-            console.log(product);
+            var _this4 = this;
+
+            /* New product object with four properties, 'title', 'description', 'price', 'availability' */
+            //console.log(product);
+            product.price = Number(product.price); // make sure price is a number (again - I used a type="number" field anyway)
+
+            /* JS fetch() API promise to post the data */
+            fetch('products/', {
+                method: 'post',
+                /* we need to send headers */
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(product)
+            }).then(function (response) {
+                return response.json();
+            }).then(function (data) {
+                /* update the state of the products array and the currentProduct state */
+                _this4.setState(function (prevState) {
+                    return {
+                        products: prevState.products.concat(data),
+                        currentProduct: data
+                    };
+                });
+            }).catch(function (error) {
+                /* If some nightmare happens. */
+                throw error;
+            });
         }
 
         /* renders the component to show the list of products. */
@@ -51425,7 +51453,7 @@ var Product = function Product(_ref) {
     /* else we display the product data. */
 
     /* product is passed as a string to the Product component with JSON.stringify(product) in the Main component. Otherwise we get the error: "Uncaught Error: Objects are not valid as a React child onclick". Thus, we must change product back into an object here in order to display the item's values. */
-    var productObject = JSON.parse(product);
+    //let productObject = JSON.parse(product);
 
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
@@ -51433,7 +51461,7 @@ var Product = function Product(_ref) {
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'h2',
             { className: 'card-header bg-light border-secondary' },
-            productObject.title
+            product.title
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
@@ -51442,19 +51470,19 @@ var Product = function Product(_ref) {
                 'p',
                 null,
                 ' ',
-                productObject.description
+                product.description
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'h3',
                 null,
                 'Status: ',
-                productObject.availability ? 'Available' : 'Out of stock'
+                product.availability ? 'Available' : 'Out of stock'
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'h3',
                 null,
                 'Price: ',
-                productObject.price
+                product.price
             )
         )
     );
@@ -57888,15 +57916,15 @@ var AddProduct = function (_Component) {
             };
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
-                null,
+                { className: 'card mb-3 border-secondary' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'h2',
-                    null,
+                    { className: 'card-header bg-light border-secondary' },
                     'Add a new product'
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
-                    { style: divStyle },
+                    { style: divStyle, className: 'card-body' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'form',
                         { onSubmit: this.handleSubmit },
@@ -57920,7 +57948,7 @@ var AddProduct = function (_Component) {
                             'label',
                             null,
                             'Price:',
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'number', min: '0.00', step: '.01', onChange: function onChange(e) {
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'number', min: '0', step: '1', onChange: function onChange(e) {
                                     return _this2.handleInput('price', e);
                                 } })
                         ),

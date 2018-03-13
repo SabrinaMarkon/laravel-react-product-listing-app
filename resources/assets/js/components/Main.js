@@ -52,7 +52,35 @@ class Main extends Component {
 
     /* if we submitted the form to add a new product, it is added with this method. In the props for the AddProduct component, handleAddProduct is called onAdd. */
     handleAddProduct(product) {
-        console.log(product);
+        /* New product object with four properties, 'title', 'description', 'price', 'availability' */
+        //console.log(product);
+        product.price = Number(product.price); // make sure price is a number (again - I used a type="number" field anyway)
+
+        /* JS fetch() API promise to post the data */
+        fetch('products/', {
+            method: 'post',
+            /* we need to send headers */
+            headers: {
+                'Accept': 'application/json',
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(product)
+        })
+        .then(response => {
+            return response.json();
+        })
+        .then(data => {
+            /* update the state of the products array and the currentProduct state */
+            this.setState(prevState => ({
+                products: prevState.products.concat(data),
+                currentProduct: data
+            }));
+        })
+        .catch(error => {
+            /* If some nightmare happens. */
+            throw error;
+        })
+
     }
 
     /* renders the component to show the list of products. */

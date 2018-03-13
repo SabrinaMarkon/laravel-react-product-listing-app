@@ -47,9 +47,9 @@ class AddProduct extends Component {
             backgroundColor: '#f7f7f7'
         }
         return(
-            <div>
-                <h2>Add a new product</h2>
-                <div style={divStyle}>
+            <div className="card mb-3 border-secondary">
+                <h2 className="card-header bg-light border-secondary">Add a new product</h2>
+                <div style={divStyle}  className="card-body">
                 {/* when the submit button is clicked by the user, the control is passed to the handleSubmit method above, which also prevents the default page reload. */}
                 <form onSubmit={this.handleSubmit}>
                     <label>Title:
@@ -59,8 +59,9 @@ class AddProduct extends Component {
                     <label>Description:
                         <input type="text" onChange={(e) => this.handleInput('description', e)} />
                     </label>
+                    {/* Note that not all browsers have support yet for the type="number" input field. Better to handle with a regular text field and some validation. */}
                     <label>Price:
-                        <input type="number" min="0.00" step=".01" onChange={(e) => this.handleInput('price', e)} />
+                        <input type="number" min="0" step="1" onChange={(e) => this.handleInput('price', e)} />
                     </label>
                     <label>Availability:
                         <input type="text" onChange={(e) => this.handleInput('availability', e)} />
