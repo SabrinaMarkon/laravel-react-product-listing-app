@@ -80,7 +80,6 @@ class Main extends Component {
             /* If some nightmare happens. */
             throw error;
         })
-
     }
 
     /* renders the component to show the list of products. */
