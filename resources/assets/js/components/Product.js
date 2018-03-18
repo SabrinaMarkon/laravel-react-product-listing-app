@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 /* Stateless component otherwise known as a 'pure component'
 { product } syntax is the object destruction */
 
-const Product = ({product}) => {
+const Product = ({product}, onDelete) => {
 
     const divStyle = {
       backgroundColor: '#f7f7f7'
@@ -11,7 +11,7 @@ const Product = ({product}) => {
 
     /* return product doesn't exist if the props 'product' is null. */
     if (!product) {
-        return(<div style={divStyle} className="card mb-3 border-secondary"><div className="card-body">  Product Doesnt exist </div></div>);
+        return(<div style={divStyle} className="card mb-3 border-secondary"><div className="card-body">  Product doesn't exist </div></div>);
     }
 
     /* else we display the product data. */
@@ -26,6 +26,7 @@ const Product = ({product}) => {
                 <p> { productObject.description }</p>
                 <h3>Status: { productObject.availability ? 'Available' : 'Out of stock' }</h3>
                 <h3>Price: { productObject.price }</h3>
+                <button>Delete</button>
             </div>        
         </div>
     );

@@ -50,6 +50,10 @@ class Main extends Component {
         });
     }
 
+    handleDeleteProduct(product) {
+        
+    }
+
     /* if we submitted the form to add a new product, it is added with this method. In the props for the AddProduct component, handleAddProduct is called onAdd. */
     handleAddProduct(product) {
         /* New product object with four properties, 'title', 'description', 'price', 'availability' */

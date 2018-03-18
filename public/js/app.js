@@ -45172,6 +45172,9 @@ var Main = function (_Component) {
                 currentProduct: product
             });
         }
+    }, {
+        key: 'handleDeleteProduct',
+        value: function handleDeleteProduct(product) {}
 
         /* if we submitted the form to add a new product, it is added with this method. In the props for the AddProduct component, handleAddProduct is called onAdd. */
 
@@ -57759,7 +57762,7 @@ module.exports = ReactDOMInvalidARIAHook;
 /* Stateless component otherwise known as a 'pure component'
 { product } syntax is the object destruction */
 
-var Product = function Product(_ref) {
+var Product = function Product(_ref, onDelete) {
     var product = _ref.product;
 
 
@@ -57774,7 +57777,7 @@ var Product = function Product(_ref) {
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
                 { className: 'card-body' },
-                '  Product Doesnt exist '
+                '  Product doesn\'t exist '
             )
         );
     }
@@ -57812,6 +57815,11 @@ var Product = function Product(_ref) {
                 null,
                 'Price: ',
                 productObject.price
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'button',
+                null,
+                'Delete'
             )
         )
     );
