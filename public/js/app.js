@@ -45122,6 +45122,7 @@ var Main = function (_Component) {
         _this.renderProducts = _this.renderProducts.bind(_this);
         _this.handleClick = _this.handleClick.bind(_this);
         _this.handleAddProduct = _this.handleAddProduct.bind(_this);
+        _this.handleDeleteProduct = _this.handleDeleteProduct.bind(_this);
         return _this;
     }
     /* After the component renders, call the lifecycle method ComponentDidMount. */
@@ -45172,9 +45173,6 @@ var Main = function (_Component) {
                 currentProduct: product
             });
         }
-    }, {
-        key: 'handleDeleteProduct',
-        value: function handleDeleteProduct(product) {}
 
         /* if we submitted the form to add a new product, it is added with this method. In the props for the AddProduct component, handleAddProduct is called onAdd. */
 
@@ -45210,6 +45208,37 @@ var Main = function (_Component) {
                 /* If some nightmare happens. */
                 throw error;
             });
+        }
+
+        // handleDeleteProduct(id) {
+        //     console.log(id);
+        //     fetch('products/' + id, {
+        //         method: 'delete'
+        //     })
+        //     .then(response => {
+        //         return response.json();
+        //     })
+        //     .then(data => {
+        //         let index = indexOf(prevState.products);
+        //         let updateproducts = products;
+        //         if(index > -1) {
+        //             updateproducts = products.splice(index, 1);
+        //         }
+        //         this.setState(prevState => ({
+        //             products: updateproducts,
+        //             currentProduct: null
+        //         }))
+        //     })
+        //     .catch(error => {
+        //         /* something bad happened */
+        //         throw error;
+        //     })
+        // }
+
+    }, {
+        key: 'handleDeleteProduct',
+        value: function handleDeleteProduct(id) {
+            console.log(id);
         }
 
         /* renders the component to show the list of products. */
@@ -45248,7 +45277,7 @@ var Main = function (_Component) {
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
                         { className: 'col-lg' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Product__["a" /* default */], { product: this.state.currentProduct }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Product__["a" /* default */], { product: this.state.currentProduct, onDelete: this.handleDeleteProduct }),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__AddProduct__["a" /* default */], { onAdd: this.handleAddProduct })
                     )
@@ -57762,15 +57791,13 @@ module.exports = ReactDOMInvalidARIAHook;
 /* Stateless component otherwise known as a 'pure component'
 { product } syntax is the object destruction */
 
-var Product = function Product(_ref, onDelete) {
-    var product = _ref.product;
-
+var Product = function Product(props) {
 
     var divStyle = {
         backgroundColor: '#f7f7f7'
 
         /* return product doesn't exist if the props 'product' is null. */
-    };if (!product) {
+    };if (!props.product) {
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             { style: divStyle, className: 'card mb-3 border-secondary' },
@@ -57785,7 +57812,7 @@ var Product = function Product(_ref, onDelete) {
     /* else we display the product data. */
 
     /* product is passed as a string to the Product component with JSON.stringify(product) in the Main component. Otherwise we get the error: "Uncaught Error: Objects are not valid as a React child onclick". Thus, we must change product back into an object here in order to display the item's values. */
-    var productObject = JSON.parse(product);
+    var productObject = JSON.parse(props.product);
 
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
@@ -57818,7 +57845,9 @@ var Product = function Product(_ref, onDelete) {
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'button',
-                null,
+                { onClick: function onClick() {
+                        return props.onDelete(productObject.id);
+                    } },
                 'Delete'
             )
         )

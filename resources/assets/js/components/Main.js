@@ -15,6 +15,7 @@ class Main extends Component {
         this.renderProducts = this.renderProducts.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.handleAddProduct = this.handleAddProduct.bind(this);
+        this.handleDeleteProduct = this.handleDeleteProduct.bind(this);
     }
     /* After the component renders, call the lifecycle method ComponentDidMount. */
     componentDidMount() {
@@ -50,10 +51,6 @@ class Main extends Component {
         });
     }
 
-    handleDeleteProduct(product) {
-        
-    }
-
     /* if we submitted the form to add a new product, it is added with this method. In the props for the AddProduct component, handleAddProduct is called onAdd. */
     handleAddProduct(product) {
         /* New product object with four properties, 'title', 'description', 'price', 'availability' */
@@ -86,6 +83,35 @@ class Main extends Component {
         })
     }
 
+    // handleDeleteProduct(id) {
+    //     console.log(id);
+    //     fetch('products/' + id, {
+    //         method: 'delete'
+    //     })
+    //     .then(response => {
+    //         return response.json();
+    //     })
+    //     .then(data => {
+    //         let index = indexOf(prevState.products);
+    //         let updateproducts = products;
+    //         if(index > -1) {
+    //             updateproducts = products.splice(index, 1);
+    //         }
+    //         this.setState(prevState => ({
+    //             products: updateproducts,
+    //             currentProduct: null
+    //         }))
+    //     })
+    //     .catch(error => {
+    //         /* something bad happened */
+    //         throw error;
+    //     })
+    // }
+
+    handleDeleteProduct(id) {
+        console.log(id);
+    }
+
     /* renders the component to show the list of products. */
     render() {
         return(
@@ -102,7 +128,7 @@ class Main extends Component {
                         </ul>
                     </div>
                     <div className="col-lg">
-                        <Product product={ this.state.currentProduct } />
+                        <Product product={ this.state.currentProduct } onDelete={this.handleDeleteProduct} />
                         <br />
                         <AddProduct onAdd={this.handleAddProduct} />
                     </div>       
