@@ -45209,37 +45209,35 @@ var Main = function (_Component) {
                 throw error;
             });
         }
-
-        // handleDeleteProduct(id) {
-        //     console.log(id);
-        //     fetch('products/' + id, {
-        //         method: 'delete'
-        //     })
-        //     .then(response => {
-        //         return response.json();
-        //     })
-        //     .then(data => {
-        //         let index = indexOf(prevState.products);
-        //         let updateproducts = products;
-        //         if(index > -1) {
-        //             updateproducts = products.splice(index, 1);
-        //         }
-        //         this.setState(prevState => ({
-        //             products: updateproducts,
-        //             currentProduct: null
-        //         }))
-        //     })
-        //     .catch(error => {
-        //         /* something bad happened */
-        //         throw error;
-        //     })
-        // }
-
     }, {
         key: 'handleDeleteProduct',
         value: function handleDeleteProduct(id) {
+            var _this5 = this;
+
             console.log(id);
+            fetch('products/' + id, {
+                method: 'delete'
+            }).then(function () {
+                var index = indexOf(prevState.products);
+                var updateproducts = products;
+                if (index > -1) {
+                    updateproducts = products.splice(index, 1);
+                }
+                _this5.setState(function (prevState) {
+                    return {
+                        products: updateproducts,
+                        currentProduct: null
+                    };
+                });
+            }).catch(function (error) {
+                /* something bad happened */
+                throw error;
+            });
         }
+
+        // handleDeleteProduct(id) {
+        //     console.log(id);
+        // }
 
         /* renders the component to show the list of products. */
 

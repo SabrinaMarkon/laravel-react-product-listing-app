@@ -83,34 +83,31 @@ class Main extends Component {
         })
     }
 
-    // handleDeleteProduct(id) {
-    //     console.log(id);
-    //     fetch('products/' + id, {
-    //         method: 'delete'
-    //     })
-    //     .then(response => {
-    //         return response.json();
-    //     })
-    //     .then(data => {
-    //         let index = indexOf(prevState.products);
-    //         let updateproducts = products;
-    //         if(index > -1) {
-    //             updateproducts = products.splice(index, 1);
-    //         }
-    //         this.setState(prevState => ({
-    //             products: updateproducts,
-    //             currentProduct: null
-    //         }))
-    //     })
-    //     .catch(error => {
-    //         /* something bad happened */
-    //         throw error;
-    //     })
-    // }
-
     handleDeleteProduct(id) {
         console.log(id);
+        fetch('products/' + id, {
+            method: 'delete'
+        })
+        .then(() => {
+            let index = indexOf(prevState.products);
+            let updateproducts = products;
+            if(index > -1) {
+                updateproducts = products.splice(index, 1);
+            }
+            this.setState(prevState => ({
+                products: updateproducts,
+                currentProduct: null
+            }))
+        })
+        .catch(error => {
+            /* something bad happened */
+            throw error;
+        })
     }
+
+    // handleDeleteProduct(id) {
+    //     console.log(id);
+    // }
 
     /* renders the component to show the list of products. */
     render() {
