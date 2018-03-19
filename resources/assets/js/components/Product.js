@@ -23,7 +23,7 @@ const Product = (props) => {
         <div style={{ divStyle }} className="card mb-3 border-secondary">
             <h2 className="card-header bg-light border-secondary">{ productObject.title }</h2>
             <div className="card-body">
-                <p> { productObject.description }</p>
+                <p> { productObject.description } with ID {productObject.id}</p>
                 <h3>Status: { productObject.availability ? 'Available' : 'Out of stock' }</h3>
                 <h3>Price: { productObject.price }</h3>
                 <button onClick={() => props.onDelete(productObject.id)}>Delete</button>

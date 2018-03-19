@@ -45201,7 +45201,7 @@ var Main = function (_Component) {
                 _this4.setState(function (prevState) {
                     return {
                         products: prevState.products.concat(data),
-                        currentProduct: data
+                        currentProduct: null
                     };
                 });
             }).catch(function (error) {
@@ -45209,39 +45209,35 @@ var Main = function (_Component) {
                 throw error;
             });
         }
+
+        /* If we click the delete button for a product, it is removed from the database and should be deleted from the react component views as well */
+
     }, {
         key: 'handleDeleteProduct',
         value: function handleDeleteProduct(id) {
             var _this5 = this;
 
-            console.log(id);
+            /* Visit the Laravel RESTful url for the route that handles deletions from the database */
             fetch('products/' + id, {
                 method: 'delete'
             }).then(function () {
-                var index = _this5.state.products.indexOf(id);
-                if (index > -1) {
-                    _this5.setState(function (prevState) {
-                        return {
-                            products: prevState.products.splice(index, 1),
-                            currentProduct: data
-                        };
-                    });
-                }
-                // this.setState((prevState) => {
-                //     return {
-                //         products: updateproducts,
-                //         currentProduct: null
-                //     }
-                // });
+                /*filter the products array to include all products except the one with the id property that matches the one we are trying to delete */
+                var items = _this5.state.products.filter(function (item) {
+                    return item.id !== id;
+                });
+
+                /* the product was successfully deleted from the database, so remove it from the state and the component view */
+                _this5.setState(function () {
+                    return {
+                        products: items,
+                        currentProduct: null
+                    };
+                });
             }).catch(function (error) {
                 /* something bad happened */
                 throw error;
             });
         }
-
-        // handleDeleteProduct(id) {
-        //     console.log(id);
-        // }
 
         /* renders the component to show the list of products. */
 
@@ -57831,7 +57827,9 @@ var Product = function Product(props) {
                 'p',
                 null,
                 ' ',
-                productObject.description
+                productObject.description,
+                ' with ID ',
+                productObject.id
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'h3',

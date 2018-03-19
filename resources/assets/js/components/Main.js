@@ -74,7 +74,7 @@ class Main extends Component {
             /* update the state of the products array and the currentProduct state */
             this.setState(prevState => ({
                 products: prevState.products.concat(data),
-                currentProduct: data
+                currentProduct: null
             }));
         })
         .catch(error => {
@@ -83,26 +83,23 @@ class Main extends Component {
         })
     }
 
+    /* If we click the delete button for a product, it is removed from the database and should be deleted from the react component views as well */
     handleDeleteProduct(id) {
-        console.log(id);
+        /* Visit the Laravel RESTful url for the route that handles deletions from the database */
         fetch('products/' + id, {
             method: 'delete'
         })
         .then(() => {
-            let index = this.state.products.indexOf(id);
-            if (index > -1) {
-                this.setState(prevState => ({
-                    products: prevState.products.splice(index, 1),
-                    currentProduct: data
-                }));
-            }
-            // this.setState((prevState) => {
-            //     return {
-            //         products: updateproducts,
-            //         currentProduct: null
-            //     }
-            // });
+                /*filter the products array to include all products except the one with the id property that matches the one we are trying to delete */
+                let items = this.state.products.filter(function(item) { 
+                    return item.id !== id; 
+                  });
 
+                /* the product was successfully deleted from the database, so remove it from the state and the component view */
+                this.setState(() => ({
+                    products: items,
+                    currentProduct: null
+                }));
         })
         .catch(error => {
             /* something bad happened */
@@ -110,9 +107,6 @@ class Main extends Component {
         })
     }
 
-    // handleDeleteProduct(id) {
-    //     console.log(id);
-    // }
 
     /* renders the component to show the list of products. */
     render() {
