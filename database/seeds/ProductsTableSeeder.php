@@ -15,7 +15,7 @@ class ProductsTableSeeder extends Seeder
     {
         $faker = \Faker\Factory::create();
         // create 50 fake product records to populate the db:
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             Product::create([
                 'title' => $faker->sentence($nbWords = 6, $variableNbWords = true),
                 'description' => $faker->paragraph,

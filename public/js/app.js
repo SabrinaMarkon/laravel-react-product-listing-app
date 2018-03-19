@@ -45218,17 +45218,21 @@ var Main = function (_Component) {
             fetch('products/' + id, {
                 method: 'delete'
             }).then(function () {
-                var index = indexOf(prevState.products);
-                var updateproducts = products;
+                var index = _this5.state.products.indexOf(id);
                 if (index > -1) {
-                    updateproducts = products.splice(index, 1);
+                    _this5.setState(function (prevState) {
+                        return {
+                            products: prevState.products.splice(index, 1),
+                            currentProduct: data
+                        };
+                    });
                 }
-                _this5.setState(function (prevState) {
-                    return {
-                        products: updateproducts,
-                        currentProduct: null
-                    };
-                });
+                // this.setState((prevState) => {
+                //     return {
+                //         products: updateproducts,
+                //         currentProduct: null
+                //     }
+                // });
             }).catch(function (error) {
                 /* something bad happened */
                 throw error;

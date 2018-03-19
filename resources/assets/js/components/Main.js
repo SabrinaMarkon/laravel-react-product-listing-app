@@ -89,15 +89,20 @@ class Main extends Component {
             method: 'delete'
         })
         .then(() => {
-            let index = indexOf(prevState.products);
-            let updateproducts = products;
-            if(index > -1) {
-                updateproducts = products.splice(index, 1);
+            let index = this.state.products.indexOf(id);
+            if (index > -1) {
+                this.setState(prevState => ({
+                    products: prevState.products.splice(index, 1),
+                    currentProduct: data
+                }));
             }
-            this.setState(prevState => ({
-                products: updateproducts,
-                currentProduct: null
-            }))
+            // this.setState((prevState) => {
+            //     return {
+            //         products: updateproducts,
+            //         currentProduct: null
+            //     }
+            // });
+
         })
         .catch(error => {
             /* something bad happened */
