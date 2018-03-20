@@ -17,7 +17,12 @@ const Product = (props) => {
     /* else we display the product data. */
 
     /* product is passed as a string to the Product component with JSON.stringify(product) in the Main component. Otherwise we get the error: "Uncaught Error: Objects are not valid as a React child onclick". Thus, we must change product back into an object here in order to display the item's values. */
+
+    //console.log(typeof props.product);
+
     let productObject = JSON.parse(props.product);
+
+    //console.log(JSON.parse(props.product));
 
     return(
         <div style={{ divStyle }} className="card mb-3 border-secondary">
