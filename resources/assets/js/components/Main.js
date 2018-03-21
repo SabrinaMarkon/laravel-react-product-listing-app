@@ -38,7 +38,7 @@ class Main extends Component {
         return this.state.products.map(product => {
             return (
                 /* if we use a list we need a key attribute that is unique for each li. Also, change the product object to a string so it can be sent to the child component, Product (otherwise we get error and clicking doesn't work. */
-                <li style={{listStyleType: 'none'}} key={ product.id } onClick={ () => this.handleClick(JSON.stringify(product)) }>
+                <li style={{listStyleType: 'none', cursor: 'pointer'}} key={ product.id } onClick={ () => this.handleClick(JSON.stringify(product)) }>
                     { product.title }
                 </li>
             );
