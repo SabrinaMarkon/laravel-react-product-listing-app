@@ -45123,6 +45123,7 @@ var Main = function (_Component) {
         _this.handleClick = _this.handleClick.bind(_this);
         _this.handleAddProduct = _this.handleAddProduct.bind(_this);
         _this.handleDeleteProduct = _this.handleDeleteProduct.bind(_this);
+        _this.handleUpdateProduct = _this.handleUpdateProduct.bind(_this);
         return _this;
     }
     /* After the component renders, call the lifecycle method ComponentDidMount. */
@@ -45239,6 +45240,31 @@ var Main = function (_Component) {
             });
         }
 
+        /* Update */
+
+    }, {
+        key: 'handleUpdateProduct',
+        value: function handleUpdateProduct(product) {
+            /* Edit product object with four properties, 'title', 'description', 'price', 'availability' */
+            //console.log(product);
+            product.price = Number(product.price); // make sure price is a number.
+            /* Visit the Laravel RESTful url for the route that handles updates to the database */
+            fetch('products/' + product.id, {
+                method: 'put',
+                /* need to send headers */
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(product)
+            }).then(function () {
+                return response.json();
+            }).then(function () {}).catch(function (error) {
+                /* something gruesome happened */
+                throw error;
+            });
+        }
+
         /* renders the component to show the list of products. */
 
     }, {
@@ -45275,7 +45301,7 @@ var Main = function (_Component) {
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
                         { className: 'col-lg' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Product__["a" /* default */], { product: this.state.currentProduct, onDelete: this.handleDeleteProduct }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Product__["a" /* default */], { product: this.state.currentProduct, onDelete: this.handleDeleteProduct, onUpdate: this.handleUpdateProduct }),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__AddProduct__["a" /* default */], { onAdd: this.handleAddProduct })
                     )
@@ -57854,6 +57880,13 @@ var Product = function Product(props) {
                         return props.onDelete(productObject.id);
                     } },
                 'Delete'
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'button',
+                { onClick: function onClick() {
+                        return props.onUpdate(productObject.id);
+                    } },
+                'Update'
             )
         )
     );

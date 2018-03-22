@@ -16,6 +16,7 @@ class Main extends Component {
         this.handleClick = this.handleClick.bind(this);
         this.handleAddProduct = this.handleAddProduct.bind(this);
         this.handleDeleteProduct = this.handleDeleteProduct.bind(this);
+        this.handleUpdateProduct = this.handleUpdateProduct.bind(this);
     }
     /* After the component renders, call the lifecycle method ComponentDidMount. */
     componentDidMount() {
@@ -107,6 +108,32 @@ class Main extends Component {
         })
     }
 
+    /* Update */
+    handleUpdateProduct(product) {
+        /* Edit product object with four properties, 'title', 'description', 'price', 'availability' */
+        //console.log(product);
+        product.price = Number(product.price); // make sure price is a number.
+        /* Visit the Laravel RESTful url for the route that handles updates to the database */
+        fetch('products/' + product.id, {
+            method: 'put',
+            /* need to send headers */
+            headers: {
+                'Accept': 'application/json',
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(product)
+        })
+        .then(() => {
+            return response.json();
+        })
+        .then(() => {
+            
+        })
+        .catch(error => {
+            /* something gruesome happened */
+            throw error;
+        })
+    }
 
     /* renders the component to show the list of products. */
     render() {
@@ -124,7 +151,7 @@ class Main extends Component {
                         </ul>
                     </div>
                     <div className="col-lg">
-                        <Product product={ this.state.currentProduct } onDelete={this.handleDeleteProduct} />
+                        <Product product={ this.state.currentProduct } onDelete={this.handleDeleteProduct} onUpdate={this.handleUpdateProduct} />
                         <br />
                         <AddProduct onAdd={this.handleAddProduct} />
                     </div>       
