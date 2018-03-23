@@ -111,23 +111,47 @@ class Main extends Component {
     /* Update */
     handleUpdateProduct(product) {
         /* Edit product object with four properties, 'title', 'description', 'price', 'availability' */
-        //console.log(product);
+console.log(product);
+        
+        product.price = 4.44;
+        product.title = 'testtitle';
+        product.description = 'testdescription';
+        product.availability = 1;
+
+console.log(product);
+console.log(product.id);
+
         product.price = Number(product.price); // make sure price is a number.
         /* Visit the Laravel RESTful url for the route that handles updates to the database */
         fetch('products/' + product.id, {
             method: 'put',
-            /* need to send headers */
+            /* we need to send headers */
             headers: {
                 'Accept': 'application/json',
                 'Content-type': 'application/json'
             },
             body: JSON.stringify(product)
         })
-        .then(() => {
+        .then(response => {
             return response.json();
         })
-        .then(() => {
-            
+        .then(data => {
+            /* update the object property values for this product */
+            let changedproduct = Object.assign({}, product, {
+                title: product.title,
+                description: product.description,
+                price: product.price,
+                availability: product.availability
+            });
+            let index = this.state.products.indexOf(product.id);
+            if (index !== -1) {
+                this.state.products[index] = changedproduct;
+            }
+            /* need to change state to reflect the update */
+            this.setState({
+                products: changedproduct,
+                currentProduct: product.id
+            });
         })
         .catch(error => {
             /* something gruesome happened */

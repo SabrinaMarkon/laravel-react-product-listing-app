@@ -45245,21 +45245,49 @@ var Main = function (_Component) {
     }, {
         key: 'handleUpdateProduct',
         value: function handleUpdateProduct(product) {
+            var _this6 = this;
+
             /* Edit product object with four properties, 'title', 'description', 'price', 'availability' */
-            //console.log(product);
+            console.log(product);
+
+            product.price = 4.44;
+            product.title = 'testtitle';
+            product.description = 'testdescription';
+            product.availability = 1;
+
+            console.log(product);
+            console.log(product.id);
+
             product.price = Number(product.price); // make sure price is a number.
             /* Visit the Laravel RESTful url for the route that handles updates to the database */
             fetch('products/' + product.id, {
                 method: 'put',
-                /* need to send headers */
+                /* we need to send headers */
                 headers: {
                     'Accept': 'application/json',
                     'Content-type': 'application/json'
                 },
                 body: JSON.stringify(product)
-            }).then(function () {
+            }).then(function (response) {
                 return response.json();
-            }).then(function () {}).catch(function (error) {
+            }).then(function (data) {
+                /* update the object property values for this product */
+                var changedproduct = Object.assign({}, product, {
+                    title: product.title,
+                    description: product.description,
+                    price: product.price,
+                    availability: product.availability
+                });
+                var index = _this6.state.products.indexOf(product.id);
+                if (index !== -1) {
+                    _this6.state.products[index] = changedproduct;
+                }
+                /* need to change state to reflect the update */
+                _this6.setState({
+                    products: changedproduct,
+                    currentProduct: product.id
+                });
+            }).catch(function (error) {
                 /* something gruesome happened */
                 throw error;
             });
@@ -57884,7 +57912,7 @@ var Product = function Product(props) {
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'button',
                 { onClick: function onClick() {
-                        return props.onUpdate(productObject.id);
+                        return props.onUpdate(productObject);
                     } },
                 'Update'
             )
