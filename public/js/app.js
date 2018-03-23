@@ -45152,6 +45152,7 @@ var Main = function (_Component) {
         value: function renderProducts() {
             var _this3 = this;
 
+            console.log('state products is an array: ' + Array.isArray(this.state.products));
             return this.state.products.map(function (product) {
                 return (
                     /* if we use a list we need a key attribute that is unique for each li. Also, change the product object to a string so it can be sent to the child component, Product (otherwise we get error and clicking doesn't work. */
@@ -45247,16 +45248,15 @@ var Main = function (_Component) {
         value: function handleUpdateProduct(product) {
             var _this6 = this;
 
-            /* Edit product object with four properties, 'title', 'description', 'price', 'availability' */
+            /* TESTING: Edit product object with four properties, 'title', 'description', 'price', 'availability' */
             console.log(product);
-
-            product.price = 4.44;
+            product.price = 2;
             product.title = 'testtitle';
             product.description = 'testdescription';
             product.availability = 1;
 
-            console.log(product);
-            console.log(product.id);
+            // console.log(product);
+            // console.log(product.id);
 
             product.price = Number(product.price); // make sure price is a number.
             /* Visit the Laravel RESTful url for the route that handles updates to the database */
@@ -45278,15 +45278,21 @@ var Main = function (_Component) {
                     price: product.price,
                     availability: product.availability
                 });
+                /* make a copy of the products state which we can update with the changes, then use in setState */
+                var productscopy = _this6.state.products;
+
+                /* does the product we want to change exist? */
                 var index = _this6.state.products.indexOf(product.id);
+
                 if (index !== -1) {
-                    _this6.state.products[index] = changedproduct;
+                    /* the product exists, so update it at its index */
+                    productscopy[index] = changedproduct;
+                    /* need to change state to reflect the update */
+                    _this6.setState({
+                        products: productscopy,
+                        currentProduct: product.id
+                    });
                 }
-                /* need to change state to reflect the update */
-                _this6.setState({
-                    products: changedproduct,
-                    currentProduct: product.id
-                });
             }).catch(function (error) {
                 /* something gruesome happened */
                 throw error;

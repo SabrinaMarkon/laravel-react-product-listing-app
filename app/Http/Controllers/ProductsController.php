@@ -27,12 +27,12 @@ class ProductsController extends Controller
     }
 
     public function update(Request $request, Product $product) {
-        $this->validate($request, [
-            'title' => 'required|unique:products|max:255',
-            'description' => 'required',
-            'price' => 'integer',
-            'availability' => 'boolean'
-        ]);
+        // $this->validate($request, [
+        //     'title' => 'required|unique:products|max:255',
+        //     'description' => 'required',
+        //     'price' => 'integer',
+        //     'availability' => 'boolean'
+        // ]);
         $product->update($request->all());
         return $response()->json($product, 200);
     }
