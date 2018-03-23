@@ -36,7 +36,7 @@ class Main extends Component {
     }
     /* maps a li to each product in the state. */
     renderProducts() {
-        console.log('state products is an array: ' + Array.isArray(this.state.products));
+        //console.log('state products is an array: ' + Array.isArray(this.state.products));
         return this.state.products.map(product => {
             return (
                 /* if we use a list we need a key attribute that is unique for each li. Also, change the product object to a string so it can be sent to the child component, Product (otherwise we get error and clicking doesn't work. */
@@ -112,10 +112,10 @@ class Main extends Component {
     /* Update */
     handleUpdateProduct(product) {
         /* TESTING: Edit product object with four properties, 'title', 'description', 'price', 'availability' */
-        console.log(product);   
-        product.price = 2;
-        product.title = 'testtitle';
-        product.description = 'testdescription';
+        //console.log(product);   
+        product.price = 3;
+        product.title = 'testtitle 1';
+        product.description = 'testdescription 1';
         product.availability = 1;
 
         // console.log(product);

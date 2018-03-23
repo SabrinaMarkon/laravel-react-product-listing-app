@@ -45152,7 +45152,7 @@ var Main = function (_Component) {
         value: function renderProducts() {
             var _this3 = this;
 
-            console.log('state products is an array: ' + Array.isArray(this.state.products));
+            //console.log('state products is an array: ' + Array.isArray(this.state.products));
             return this.state.products.map(function (product) {
                 return (
                     /* if we use a list we need a key attribute that is unique for each li. Also, change the product object to a string so it can be sent to the child component, Product (otherwise we get error and clicking doesn't work. */
@@ -45249,10 +45249,10 @@ var Main = function (_Component) {
             var _this6 = this;
 
             /* TESTING: Edit product object with four properties, 'title', 'description', 'price', 'availability' */
-            console.log(product);
-            product.price = 2;
-            product.title = 'testtitle';
-            product.description = 'testdescription';
+            //console.log(product);   
+            product.price = 3;
+            product.title = 'testtitle 1';
+            product.description = 'testdescription 1';
             product.availability = 1;
 
             // console.log(product);
