@@ -45257,8 +45257,8 @@ var Main = function (_Component) {
             /* TESTING: Edit product object with four properties, 'title', 'description', 'price', 'availability' */
             //console.log(product);   
             product.price = 3;
-            product.title = 'testtitle 1';
-            product.description = 'testdescription 1';
+            // product.title = 'testtitle 1';
+            // product.description = 'testdescription 1';
             product.availability = 1;
 
             // console.log(product);
@@ -57918,7 +57918,7 @@ var Product = function Product(props) {
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         { style: { divStyle: divStyle }, className: 'card mb-3 border-secondary' },
-        props.editform === true ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', onChange: function onChange(e) {
+        props.editform === true ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', size: '50', maxLength: '50', defaultValue: productObject.title, onChange: function onChange(e) {
                 return props.onInputChange(productObject.id, 'title', e);
             } }) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'h2',
@@ -57928,7 +57928,7 @@ var Product = function Product(props) {
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             { className: 'card-body' },
-            props.editform === true ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', { rows: '5', cols: '50', onChange: function onChange(e) {
+            props.editform === true ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', { rows: '5', cols: '60', wrap: 'hard', defaultValue: productObject.description, onChange: function onChange(e) {
                     return props.onInputChange(productObject.id, 'description', e);
                 } }) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'p',

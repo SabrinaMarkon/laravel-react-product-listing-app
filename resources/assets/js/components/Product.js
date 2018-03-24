@@ -26,10 +26,10 @@ const Product = (props) => {
 
     return(
         <div style={{ divStyle }} className="card mb-3 border-secondary">
-            {props.editform === true ? <input type="text" onChange={(e) => props.onInputChange(productObject.id, 'title', e)} /> : 
+            {props.editform === true ? <input type="text" size="50" maxLength="50" defaultValue={productObject.title} onChange={(e) => props.onInputChange(productObject.id, 'title', e)} /> : 
             <h2 className="card-header bg-light border-secondary">{ productObject.title }</h2>}
             <div className="card-body">
-                {props.editform === true ? <textarea rows="5" cols="50" onChange={(e) => props.onInputChange(productObject.id, 'description', e)}></textarea> : 
+                {props.editform === true ? <textarea rows="5" cols="60"  wrap="hard" defaultValue={productObject.description} onChange={(e) => props.onInputChange(productObject.id, 'description', e)}></textarea> : 
                 <p> { productObject.description } with ID {productObject.id}</p>
                 }
                 <h3>Status: { productObject.availability ? 'Available' : 'Out of stock' }</h3>

@@ -120,8 +120,8 @@ class Main extends Component {
         /* TESTING: Edit product object with four properties, 'title', 'description', 'price', 'availability' */
         //console.log(product);   
         product.price = 3;
-        product.title = 'testtitle 1';
-        product.description = 'testdescription 1';
+        // product.title = 'testtitle 1';
+        // product.description = 'testdescription 1';
         product.availability = 1;
 
         // console.log(product);
