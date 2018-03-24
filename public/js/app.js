@@ -45126,6 +45126,7 @@ var Main = function (_Component) {
         _this.handleDeleteProduct = _this.handleDeleteProduct.bind(_this);
         _this.handleUpdateProduct = _this.handleUpdateProduct.bind(_this);
         _this.handleEditProduct = _this.handleEditProduct.bind(_this);
+        _this.handleChangeInputs = _this.handleChangeInputs.bind(_this);
         return _this;
     }
     /* After the component renders, call the lifecycle method ComponentDidMount. */
@@ -45314,7 +45315,26 @@ var Main = function (_Component) {
                     currentProductUpdateForm: !prevState.currentProductUpdateForm
                 };
             });
-            console.log(this.state.currentProductUpdateForm);
+        }
+
+        /* Handle changing form fields for editing. Duplicate then update the products state */
+
+    }, {
+        key: 'handleChangeInputs',
+        value: function handleChangeInputs(id, key, e) {
+            /* make a copy of the products array */
+            var productscopy = this.state.products;
+            /* get the index of the product we want to edit in the products array */
+            var index = this.state.products.map(function (e) {
+                return e.id;
+            }).indexOf(id);
+            if (index !== -1) {
+                /* this is the product row object: */
+                productscopy[index][key] = e.target.value;
+                this.setState({
+                    products: productscopy
+                });
+            }
         }
 
         /* renders the component to show the list of products. */
@@ -45353,7 +45373,7 @@ var Main = function (_Component) {
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
                         { className: 'col-lg' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Product__["a" /* default */], { product: this.state.currentProduct, editform: this.state.currentProductUpdateForm, onDelete: this.handleDeleteProduct, onUpdate: this.handleUpdateProduct, onEdit: this.handleEditProduct }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Product__["a" /* default */], { product: this.state.currentProduct, editform: this.state.currentProductUpdateForm, onDelete: this.handleDeleteProduct, onUpdate: this.handleUpdateProduct, onEdit: this.handleEditProduct, onInputChange: this.handleChangeInputs }),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__AddProduct__["a" /* default */], { onAdd: this.handleAddProduct })
                     )
@@ -57898,7 +57918,9 @@ var Product = function Product(props) {
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         { style: { divStyle: divStyle }, className: 'card mb-3 border-secondary' },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        props.editform === true ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', onChange: function onChange(e) {
+                return props.onInputChange(productObject.id, 'title', e);
+            } }) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'h2',
             { className: 'card-header bg-light border-secondary' },
             productObject.title
@@ -57906,7 +57928,9 @@ var Product = function Product(props) {
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             { className: 'card-body' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            props.editform === true ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', { rows: '5', cols: '50', onChange: function onChange(e) {
+                    return props.onInputChange(productObject.id, 'description', e);
+                } }) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'p',
                 null,
                 ' ',
@@ -57946,9 +57970,7 @@ var Product = function Product(props) {
                         return props.onUpdate(productObject);
                     } },
                 'Update'
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
-            props.editform
+            )
         )
     );
 };

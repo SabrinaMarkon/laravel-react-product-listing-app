@@ -26,16 +26,17 @@ const Product = (props) => {
 
     return(
         <div style={{ divStyle }} className="card mb-3 border-secondary">
-            <h2 className="card-header bg-light border-secondary">{ productObject.title }</h2>
+            {props.editform === true ? <input type="text" onChange={(e) => props.onInputChange(productObject.id, 'title', e)} /> : 
+            <h2 className="card-header bg-light border-secondary">{ productObject.title }</h2>}
             <div className="card-body">
+                {props.editform === true ? <textarea rows="5" cols="50" onChange={(e) => props.onInputChange(productObject.id, 'description', e)}></textarea> : 
                 <p> { productObject.description } with ID {productObject.id}</p>
+                }
                 <h3>Status: { productObject.availability ? 'Available' : 'Out of stock' }</h3>
                 <h3>Price: { productObject.price }</h3>
                 <button onClick={() => props.onDelete(productObject.id)}>Delete</button>
                 <button onClick={() => props.onEdit(productObject.id)}>Edit</button>
                 <button onClick={() => props.onUpdate(productObject)}>Update</button>
-                <br />
-                {props.editform}
             </div>        
         </div>
     );

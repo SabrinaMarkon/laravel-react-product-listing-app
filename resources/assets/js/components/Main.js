@@ -19,6 +19,7 @@ class Main extends Component {
         this.handleDeleteProduct = this.handleDeleteProduct.bind(this);
         this.handleUpdateProduct = this.handleUpdateProduct.bind(this);
         this.handleEditProduct = this.handleEditProduct.bind(this);
+        this.handleChangeInputs = this.handleChangeInputs.bind(this);
     }
     /* After the component renders, call the lifecycle method ComponentDidMount. */
     componentDidMount() {
@@ -175,7 +176,21 @@ class Main extends Component {
         this.setState(prevState => ({
             currentProductUpdateForm: !prevState.currentProductUpdateForm
         }));
-        console.log(this.state.currentProductUpdateForm);
+    }
+
+    /* Handle changing form fields for editing. Duplicate then update the products state */
+    handleChangeInputs(id, key, e) {
+        /* make a copy of the products array */
+        let productscopy =  this.state.products;
+        /* get the index of the product we want to edit in the products array */
+        let index = this.state.products.map(function(e) { return e.id; }).indexOf(id);
+        if (index !== -1) {
+            /* this is the product row object: */
+            productscopy[index][key] = e.target.value;
+            this.setState({
+                products: productscopy
+            });
+        }
     }
 
     /* renders the component to show the list of products. */
@@ -194,7 +209,7 @@ class Main extends Component {
                         </ul>
                     </div>
                     <div className="col-lg">
-                        <Product product={ this.state.currentProduct } editform={this.state.currentProductUpdateForm} onDelete={this.handleDeleteProduct} onUpdate={this.handleUpdateProduct} onEdit={this.handleEditProduct} />
+                        <Product product={ this.state.currentProduct } editform={this.state.currentProductUpdateForm} onDelete={this.handleDeleteProduct} onUpdate={this.handleUpdateProduct} onEdit={this.handleEditProduct} onInputChange={this.handleChangeInputs} />
                         <br />
                         <AddProduct onAdd={this.handleAddProduct} />
                     </div>       
