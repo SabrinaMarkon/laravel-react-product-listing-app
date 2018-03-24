@@ -28,7 +28,7 @@ class ProductsController extends Controller
 
     public function update(Request $request, Product $product) {
         $this->validate($request, [
-            'title' => 'required|max:255',
+            'title' => 'required||max:255',
             'description' => 'required',
             'price' => 'integer',
             'availability' => 'boolean'

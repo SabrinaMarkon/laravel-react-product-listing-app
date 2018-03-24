@@ -32,7 +32,10 @@ const Product = (props) => {
                 <h3>Status: { productObject.availability ? 'Available' : 'Out of stock' }</h3>
                 <h3>Price: { productObject.price }</h3>
                 <button onClick={() => props.onDelete(productObject.id)}>Delete</button>
+                <button onClick={() => props.onEdit(productObject.id)}>Edit</button>
                 <button onClick={() => props.onUpdate(productObject)}>Update</button>
+                <br />
+                {props.editform}
             </div>        
         </div>
     );

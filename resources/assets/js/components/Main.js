@@ -10,13 +10,15 @@ class Main extends Component {
         /* Initialize our state. */
         this.state = {
             products: [],
-            currentProduct: null
+            currentProduct: null,
+            currentProductUpdateForm: false
         }
         this.renderProducts = this.renderProducts.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.handleAddProduct = this.handleAddProduct.bind(this);
         this.handleDeleteProduct = this.handleDeleteProduct.bind(this);
         this.handleUpdateProduct = this.handleUpdateProduct.bind(this);
+        this.handleEditProduct = this.handleEditProduct.bind(this);
     }
     /* After the component renders, call the lifecycle method ComponentDidMount. */
     componentDidMount() {
@@ -49,7 +51,8 @@ class Main extends Component {
     /* if a product title is clicked. */
     handleClick(product) {
         this.setState({
-            currentProduct: product
+            currentProduct: product,
+            currentProductUpdateForm: false
         });
     }
 
@@ -76,7 +79,8 @@ class Main extends Component {
             /* update the state of the products array and the currentProduct state */
             this.setState(prevState => ({
                 products: prevState.products.concat(data),
-                currentProduct: null
+                currentProduct: null,
+                currentProductUpdateForm: false
             }));
         })
         .catch(error => {
@@ -100,7 +104,8 @@ class Main extends Component {
                 /* the product was successfully deleted from the database, so remove it from the state and the component view */
                 this.setState(() => ({
                     products: items,
-                    currentProduct: null
+                    currentProduct: null,
+                    currentProductUpdateForm: false
                 }));
         })
         .catch(error => {
@@ -165,6 +170,14 @@ class Main extends Component {
         })
     }
 
+    /* Click edit button to render the product as a pre-filled form that can be changed. */
+    handleEditProduct(id) {
+        this.setState(prevState => ({
+            currentProductUpdateForm: !prevState.currentProductUpdateForm
+        }));
+        console.log(this.state.currentProductUpdateForm);
+    }
+
     /* renders the component to show the list of products. */
     render() {
         return(
@@ -181,7 +194,7 @@ class Main extends Component {
                         </ul>
                     </div>
                     <div className="col-lg">
-                        <Product product={ this.state.currentProduct } onDelete={this.handleDeleteProduct} onUpdate={this.handleUpdateProduct} />
+                        <Product product={ this.state.currentProduct } editform={this.state.currentProductUpdateForm} onDelete={this.handleDeleteProduct} onUpdate={this.handleUpdateProduct} onEdit={this.handleEditProduct} />
                         <br />
                         <AddProduct onAdd={this.handleAddProduct} />
                     </div>       

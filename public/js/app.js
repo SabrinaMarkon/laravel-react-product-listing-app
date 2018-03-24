@@ -45117,13 +45117,15 @@ var Main = function (_Component) {
 
         _this.state = {
             products: [],
-            currentProduct: null
+            currentProduct: null,
+            currentProductUpdateForm: false
         };
         _this.renderProducts = _this.renderProducts.bind(_this);
         _this.handleClick = _this.handleClick.bind(_this);
         _this.handleAddProduct = _this.handleAddProduct.bind(_this);
         _this.handleDeleteProduct = _this.handleDeleteProduct.bind(_this);
         _this.handleUpdateProduct = _this.handleUpdateProduct.bind(_this);
+        _this.handleEditProduct = _this.handleEditProduct.bind(_this);
         return _this;
     }
     /* After the component renders, call the lifecycle method ComponentDidMount. */
@@ -45172,7 +45174,8 @@ var Main = function (_Component) {
         key: 'handleClick',
         value: function handleClick(product) {
             this.setState({
-                currentProduct: product
+                currentProduct: product,
+                currentProductUpdateForm: false
             });
         }
 
@@ -45203,7 +45206,8 @@ var Main = function (_Component) {
                 _this4.setState(function (prevState) {
                     return {
                         products: prevState.products.concat(data),
-                        currentProduct: null
+                        currentProduct: null,
+                        currentProductUpdateForm: false
                     };
                 });
             }).catch(function (error) {
@@ -45232,7 +45236,8 @@ var Main = function (_Component) {
                 _this5.setState(function () {
                     return {
                         products: items,
-                        currentProduct: null
+                        currentProduct: null,
+                        currentProductUpdateForm: false
                     };
                 });
             }).catch(function (error) {
@@ -45299,6 +45304,19 @@ var Main = function (_Component) {
             });
         }
 
+        /* Click edit button to render the product as a pre-filled form that can be changed. */
+
+    }, {
+        key: 'handleEditProduct',
+        value: function handleEditProduct(id) {
+            this.setState(function (prevState) {
+                return {
+                    currentProductUpdateForm: !prevState.currentProductUpdateForm
+                };
+            });
+            console.log(this.state.currentProductUpdateForm);
+        }
+
         /* renders the component to show the list of products. */
 
     }, {
@@ -45335,7 +45353,7 @@ var Main = function (_Component) {
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
                         { className: 'col-lg' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Product__["a" /* default */], { product: this.state.currentProduct, onDelete: this.handleDeleteProduct, onUpdate: this.handleUpdateProduct }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Product__["a" /* default */], { product: this.state.currentProduct, editform: this.state.currentProductUpdateForm, onDelete: this.handleDeleteProduct, onUpdate: this.handleUpdateProduct, onEdit: this.handleEditProduct }),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__AddProduct__["a" /* default */], { onAdd: this.handleAddProduct })
                     )
@@ -57918,10 +57936,19 @@ var Product = function Product(props) {
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'button',
                 { onClick: function onClick() {
+                        return props.onEdit(productObject.id);
+                    } },
+                'Edit'
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'button',
+                { onClick: function onClick() {
                         return props.onUpdate(productObject);
                     } },
                 'Update'
-            )
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+            props.editform
         )
     );
 };
